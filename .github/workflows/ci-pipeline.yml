@@ -21,15 +21,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      
-        # ... (Install dependencies step) ...
+      # --- THIS IS THE FIX ---
+      - name: Create data directory
+        run: mkdir -p data
+      # ---------------------
 
       - name: Preprocess data
         run: python preprocess.py
-
-      - name: Train model
-        run: python train.py --version ${{ github.run_number }}
-      # ...
 
       - name: Train model
         run: python train.py --version ${{ github.run_number }}
