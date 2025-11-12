@@ -1,0 +1,21 @@
+1. How does CI/CD improve collaboration in ML teams?
+
+It makes sure everyone is on the same page. Every time someone pushes code, it's automatically built and tested in the exact same way. This stops the "it worked on my machine!" problem and catches bugs early, so the team can trust that the 'main' branch always works.
+
+
+2. What happens if the evaluation score is below a defined threshold?
+
+Right now, nothing. The workflow will still pass as long as the script runs without an error. To fix this, you would change the 'evaluate.py' script to exit with an error code (like 'sys.exit(1)') if the score is too low. This would make the workflow fail and stop a bad model from being saved.
+
+
+3. How can retraining or drift detection be integrated into this workflow?
+
+You would add new triggers. For retraining, you could add a 'schedule' trigger to make it run automatically every week. For drift detection, you could add a new step that runs a script to check the data, and if drift is found, it would fail the workflow.
+
+
+4. What steps are needed to deploy this workflow to production?
+
+1. Download the model artifact (the .pkl file).
+2. Build a Docker image (using the Dockerfile.serve and app.py).
+3. Push that image to a container registry (like Docker Hub or AWS ECR).
+4. Tell your production server (like Kubernetes or AWS) to use the new image.
